@@ -1,13 +1,16 @@
 namespace :csv_import do
-  desc "Seed customers.csv from db/csv_seeds to customers table"
-  desc "Seed invoice_items.csv from db/csv_seeds to invoice_items table"
-  desc "Seed items.csv from db/csv_seeds to items table"
-  desc "Seed invoices.csv from db/csv_seeds to invoices table"
-  desc "Seed merchants.csv from db/csv_seeds to merchants table"
-  desc "Seed transactions.csv from db/csv_seeds to transactions table"
+  desc 'Import files to database tables'
 
 	task import_csv: :environment do
     require "csv"
+
+		Transaction.delete_all
+ 		InvoiceItem.delete_all
+ 		Invoice.delete_all
+ 		Item.delete_all
+ 		Merchant.delete_all
+ 		Customer.delete_all
+
     customers = CSV.read("db/csv_seeds/customers.csv", headers: true)
     invoice_items = CSV.read("db/csv_seeds/invoice_items.csv", headers: true)
     invoices = CSV.read("db/csv_seeds/invoices.csv", headers: true)
@@ -21,28 +24,30 @@ namespace :csv_import do
     puts("Customer File imported")
 
     invoice_items.each do |line|
-      InvoiceItem.create(item_id: line[1], invoice_id: line[2], quantity: line[3], unit_price: line[4], created_at: line[5], updated_at: line[6])
+      InvoiceItem.create(line.to_h)
     end
     puts("Invoice_items File imported")
 
     invoices.each do |line|
-      Invoice.create(customer_id: line[1], merchant_id: line[2], status: line[3], created_at: line[4], updated_at: line[5])
+      Invoice.create(line.to_h)
     end
     puts("Invoices File imported")
 
     items.each do |line|
-      Item.create(name: line[1], description: line[2], unit_price: line[3], merchant_id: line[4], created_at: line[5], updated_at: line[6])
+      Item.create(line.to_h)
     end
     puts("Items File imported")
 
     merchants.each do |line|
-      Merchant.create(name: line[1], created_at: line[2], updated_at: line[3])
+      Merchant.create(line.to_h)
     end
     puts("Merchants File imported")
 
     transactions.each do |line|
-      Transaction.create(invoice_id: line[1], credit_card_number: line[2], credit_card_expiration_date: line[3], result: line[4], created_at: line[5], updated_at: line[6])
+      Transaction.create(line.to_h])
     end
     puts("Transactions File imported")
+
+		puts("All Files Imported Successfully!")
   end
 end
