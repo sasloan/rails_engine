@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_17_044139) do
+ActiveRecord::Schema.define(version: 2020_03_17_043954) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,10 +23,10 @@ ActiveRecord::Schema.define(version: 2020_03_17_044139) do
   end
 
   create_table "invoice_items", force: :cascade do |t|
+    t.bigint "item_id", null: false
+    t.bigint "invoice_id", null: false
     t.integer "quantity"
     t.float "unit_price"
-    t.bigint "invoice_id", null: false
-    t.bigint "item_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["invoice_id"], name: "index_invoice_items_on_invoice_id"
@@ -34,9 +34,11 @@ ActiveRecord::Schema.define(version: 2020_03_17_044139) do
   end
 
   create_table "invoices", force: :cascade do |t|
-    t.boolean "status"
     t.bigint "customer_id", null: false
     t.bigint "merchant_id", null: false
+    t.boolean "status"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["customer_id"], name: "index_invoices_on_customer_id"
     t.index ["merchant_id"], name: "index_invoices_on_merchant_id"
   end
@@ -45,9 +47,9 @@ ActiveRecord::Schema.define(version: 2020_03_17_044139) do
     t.string "name"
     t.string "description"
     t.float "unit_price"
+    t.bigint "merchant_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "merchant_id", null: false
     t.index ["merchant_id"], name: "index_items_on_merchant_id"
   end
 
@@ -58,12 +60,12 @@ ActiveRecord::Schema.define(version: 2020_03_17_044139) do
   end
 
   create_table "transactions", force: :cascade do |t|
+    t.bigint "invoice_id", null: false
     t.integer "credit_card_number"
     t.string "credit_card_expiration_date"
     t.boolean "result"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "invoice_id", null: false
     t.index ["invoice_id"], name: "index_transactions_on_invoice_id"
   end
 

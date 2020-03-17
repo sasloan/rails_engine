@@ -21,17 +21,17 @@ namespace :csv_import do
     puts("Customer File imported")
 
     invoice_items.each do |line|
-      InvoiceItem.create(quantity: line[1], unit_price: line[2], created_at: line[3], updated_at: line[4])
+      InvoiceItem.create(item_id: line[1], invoice_id: line[2], quantity: line[3], unit_price: line[4], created_at: line[5], updated_at: line[6])
     end
     puts("Invoice_items File imported")
 
     invoices.each do |line|
-      Invoice.create(status: line[1], created_at: line[2], updated_at: line[3])
+      Invoice.create(customer_id: line[1], merchant_id: line[2], status: line[3], created_at: line[4], updated_at: line[5])
     end
     puts("Invoices File imported")
 
     items.each do |line|
-      Item.create(name: line[1], description: line[2], unit_price: line[3], created_at: line[4], updated_at: line[5])
+      Item.create(name: line[1], description: line[2], unit_price: line[3], merchant_id: line[4], created_at: line[5], updated_at: line[6])
     end
     puts("Items File imported")
 
@@ -41,7 +41,7 @@ namespace :csv_import do
     puts("Merchants File imported")
 
     transactions.each do |line|
-      Transaction.create(credit_card_number: line[1], credit_card_expiration_date: line[2], result: line[3], created_at: line[4], updated_at: line[5])
+      Transaction.create(invoice_id: line[1], credit_card_number: line[2], credit_card_expiration_date: line[3], result: line[4], created_at: line[5], updated_at: line[6])
     end
     puts("Transactions File imported")
   end
