@@ -8,12 +8,12 @@ namespace :csv_import do
 
 	task import_csv: :environment do
     require "csv"
-    customers = headers: true("db/csv_seeds/customers.csv")
-    invoice_items = headers: true("db/csv_seeds/invoice_items.csv")
-    invoices = headers: true("db/csv_seeds/invoices.csv")
-    items = headers: true("db/csv_seeds/items.csv")
-    merchants = headers: true("db/csv_seeds/merchants.csv")
-    transactions = headers: true("db/csv_seeds/transactions.csv")
+    customers = CSV.read("db/csv_seeds/customers.csv", headers: true)
+    invoice_items = CSV.read("db/csv_seeds/invoice_items.csv", headers: true)
+    invoices = CSV.read("db/csv_seeds/invoices.csv", headers: true)
+    items = CSV.read("db/csv_seeds/items.csv", headers: true)
+    merchants = CSV.read("db/csv_seeds/merchants.csv", headers: true)
+    transactions = CSV.read("db/csv_seeds/transactions.csv", headers: true)
 
     customers.each do |line|
       Customer.create(first_name: line[1], last_name: line[2], created_at: line[3], updated_at: line[4])

@@ -6,8 +6,8 @@ RSpec.describe Invoice, type: :model do
 	end
 
 	describe 'Relationships' do
-		it {should belong_to :customers}
-		it {should belong_to :merchants}
+		it {should belong_to :customer}
+		it {should belong_to :merchant}
 		it {should have_many :transactions}
 	end
 end
