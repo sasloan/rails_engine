@@ -8,40 +8,41 @@ namespace :csv_import do
 
 	task import_csv: :environment do
     require "csv"
-    customers = CSV.read("db/csv_seeds/customers.csv")
-    invoice_items = CSV.read("db/csv_seeds/invoice_items.csv")
-    invoices = CSV.read("db/csv_seeds/invoices.csv")
-    items = CSV.read("db/csv_seeds/items.csv")
-    merchants = CSV.read("db/csv_seeds/merchants.csv")
-    transactions = CSV.read("db/csv_seeds/transactions.csv")
+    customers = headers: true("db/csv_seeds/customers.csv")
+    invoice_items = headers: true("db/csv_seeds/invoice_items.csv")
+    invoices = headers: true("db/csv_seeds/invoices.csv")
+    items = headers: true("db/csv_seeds/items.csv")
+    merchants = headers: true("db/csv_seeds/merchants.csv")
+    transactions = headers: true("db/csv_seeds/transactions.csv")
 
     customers.each do |line|
-      Customer.create(first_name: line[0], last_name: [1], created_at: [2], updated_at: [3])
+      Customer.create(first_name: line[1], last_name: line[2], created_at: line[3], updated_at: line[4])
     end
     puts("Customer File imported")
 
     invoice_items.each do |line|
-      Customer.create(quantity: line[0], unit_price: [1], created_at: [2], updated_at: [3])
+      InvoiceItem.create(quantity: line[1], unit_price: line[2], created_at: line[3], updated_at: line[4])
     end
     puts("Invoice_items File imported")
 
     invoices.each do |line|
-      Customer.create(status: line[0], created_at: [1], updated_at: [2])
+      Invoice.create(status: line[1], created_at: line[2], updated_at: line[3])
     end
     puts("Invoices File imported")
 
     items.each do |line|
-      Customer.create(name: line[0], description: [1], unit_price: [2] created_at: [3], updated_at: [4])
+      Item.create(name: line[1], description: line[2], unit_price: line[3], created_at: line[4], updated_at: line[5])
     end
     puts("Items File imported")
 
     merchants.each do |line|
-      Customer.create(name: line[0], created_at: [1], updated_at: [2])
+      Merchant.create(name: line[1], created_at: line[2], updated_at: line[3])
     end
     puts("Merchants File imported")
 
     transactions.each do |line|
-      Customer.create(credit_card_number: line[0], credit_card_expiration_date: [1], result: [2], created_at: [3], updated_at: [4])
+      Transaction.create(credit_card_number: line[1], credit_card_expiration_date: line[2], result: line[3], created_at: line[4], updated_at: line[5])
     end
     puts("Transactions File imported")
   end
+end
