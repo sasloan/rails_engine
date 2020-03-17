@@ -35,6 +35,8 @@ namespace :csv_import do
 
     items.each do |line|
       Item.create(line.to_h)
+			item.unit_price = item.unit_price / 100
+  		item.save
     end
     puts("Items File imported")
 
