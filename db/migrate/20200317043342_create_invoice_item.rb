@@ -4,7 +4,7 @@ class CreateInvoiceItem < ActiveRecord::Migration[6.0]
 			t.references :item, null: false, foreign_key: true
 			t.references :invoice, null: false, foreign_key: true
       t.integer :quantity
-      t.float :unit_price
+      t.decimal :unit_price
 
 			t.timestamps
     end
