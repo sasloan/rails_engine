@@ -3,7 +3,7 @@ require 'spec_helper'
 ENV['RAILS_ENV'] ||= 'test'
 
 require 'simplecov'
-Simplecov.start
+SimpleCov.start
 
 require File.expand_path('../config/environment', __dir__)
 
@@ -63,4 +63,12 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+
+	Shoulda::Matchers.configure do |config|
+    config.integrate do |with|
+      with.test_framework :rspec
+
+      with.library :rails
+    end
+  end
 end
