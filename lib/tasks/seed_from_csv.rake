@@ -44,7 +44,7 @@ namespace :csv_import do
     puts("Merchants File imported")
 
     transactions.each do |line|
-      Transaction.create(line.to_h])
+      Transaction.create(line.to_h)
     end
     puts("Transactions File imported")
 
