@@ -50,15 +50,17 @@ RSpec.describe Merchant, type: :model do
 			@nancy_invoice_1 = Invoice.create!(customer_id: 3, merchant_id: 2, status: true)
 			@nancy_invoice_2 = Invoice.create!(customer_id: 3, merchant_id: 3, status: true)
 			@nancy_invoice_3 = Invoice.create!(customer_id: 3, merchant_id: 4, status: false)
-			@transaction_1 = @sherry_invoice_1.create!(credit_card_number: 1234 5678 9011 1213, credit_card_expiration_date: "12-10-2024")
-			@transaction_2 = @sherry_invoice_2.create!(credit_card_number: 1415 1617 1819 2021, credit_card_expiration_date: "11-10-2024")
-			@transaction_3 = @sherry_invoice_3.create!(credit_card_number: 2223 2425 2627 2829, credit_card_expiration_date: "1-10-2024")
-			@transaction_4 = @holly_invoice_1.create!(credit_card_number: 3031 3233 3435 3637, credit_card_expiration_date: "5-10-2025")
-			@transaction_5 = @holly_invoice_2.create!(credit_card_number: 3839 4041 4243 4445, credit_card_expiration_date: "7-10-2025")
-			@transaction_6 = @holly_invoice_3.create!(credit_card_number: 4647 4849 5051 5253, credit_card_expiration_date: "8-10-2026")
-			@transaction_7 = @nancy_invoice_1.create!(credit_card_number: 5455 5657 5859 6061, credit_card_expiration_date: "9-10-2025")
-			@transaction_8 = @nancy_invoice_2.create!(credit_card_number: 6263 6465 6667 6869, credit_card_expiration_date: "8-10-2024")
-			@transaction_9 = @nancy_invoice_3.create!(credit_card_number: 7071 7273 7475 7677, credit_card_expiration_date: "12-10-2024")
+			@transaction_1 = @sherry_invoice_1.transactions.create!(credit_card_number: 1234567890111213, credit_card_expiration_date: "12-10-2024")
+			@transaction_2 = @sherry_invoice_2.transactions.create!(credit_card_number: 1415161718192021, credit_card_expiration_date: "11-10-2024")
+			@transaction_3 = @sherry_invoice_3.transactions.create!(credit_card_number: 2223242526272829, credit_card_expiration_date: "1-10-2024")
+			@transaction_4 = @holly_invoice_1.transactions.create!(credit_card_number: 3031323334353637, credit_card_expiration_date: "5-10-2025")
+			@transaction_5 = @holly_invoice_2.transactions.create!(credit_card_number: 3839404142434445, credit_card_expiration_date: "7-10-2025")
+			@transaction_6 = @holly_invoice_3.transactions.create!(credit_card_number: 4647484950515253, credit_card_expiration_date: "8-10-2026")
+			@transaction_7 = @nancy_invoice_1.transactions.create!(credit_card_number: 5455565758596061, credit_card_expiration_date: "9-10-2025")
+			@transaction_8 = @nancy_invoice_2.transactions.create!(credit_card_number: 6263646566676869, credit_card_expiration_date: "8-10-2024")
+			@transaction_9 = @nancy_invoice_3.transactions.create!(credit_card_number: 7071727374757677, credit_card_expiration_date: "12-10-2024")
+		end
+	end
 
 
 
