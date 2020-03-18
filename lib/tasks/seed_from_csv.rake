@@ -1,55 +1,42 @@
-namespace :csv_import do
+namespace :import do
   desc 'Import files to database tables'
-
-	task import_csv: :environment do
-    require "csv"
-
-		Transaction.delete_all
- 		InvoiceItem.delete_all
- 		Invoice.delete_all
- 		Item.delete_all
- 		Merchant.delete_all
- 		Customer.delete_all
-
-    customers = CSV.read("db/csv_seeds/customers.csv", headers: true)
-    invoice_items = CSV.read("db/csv_seeds/invoice_items.csv", headers: true)
-    invoices = CSV.read("db/csv_seeds/invoices.csv", headers: true)
-    items = CSV.read("db/csv_seeds/items.csv", headers: true)
-    merchants = CSV.read("db/csv_seeds/merchants.csv", headers: true)
-    transactions = CSV.read("db/csv_seeds/transactions.csv", headers: true)
-
+  task from_csv: :environment do
+    require 'csv'
+    system "rake db:reset > /dev/null"
+    customers = CSV.read('db/csv_seeds/customers.csv', headers: true)
+    invoice_items = CSV.read('db/csv_seeds/invoice_items.csv', headers: true)
+    invoices = CSV.read('db/csv_seeds/invoices.csv', headers: true)
+    items = CSV.read('db/csv_seeds/items.csv', headers: true)
+    merchants = CSV.read('db/csv_seeds/merchants.csv', headers: true)
+    transactions = CSV.read('db/csv_seeds/transactions.csv', headers: true)
     customers.each do |line|
-      Customer.create(first_name: line[1], last_name: line[2], created_at: line[3], updated_at: line[4])
+      Customer.create(line.to_a[1..-1].to_h)
     end
-    puts("Customer File imported")
-
-    invoice_items.each do |line|
-      InvoiceItem.create(line.to_h)
-    end
-    puts("Invoice_items File imported")
-
-    invoices.each do |line|
-      Invoice.create(line.to_h)
-    end
-    puts("Invoices File imported")
-
-    items.each do |line|
-      item = Item.new(line.to_h)
-			item.unit_price = item.unit_price / 100
-  		item.save
-    end
-    puts("Items File imported")
-
+    puts 'Customers Imported'
     merchants.each do |line|
-      Merchant.create(line.to_h)
+      Merchant.create(line.to_a[1..-1].to_h)
     end
-    puts("Merchants File imported")
-
+    puts 'Merchants Imported'
+    items.each do |line|
+      item = Item.new(line.to_a[1..-1].to_h)
+      item.unit_price = item.unit_price / 100
+      item.save
+    end
+    puts 'Items Imported'
+    invoices.each do |line|
+      Invoice.create(line.to_a[1..-1].to_h)
+    end
+    puts 'Invoices Imported'
+    invoice_items.each do |line|
+      invoice_item = InvoiceItem.new(line.to_a[1..-1].to_h)
+      invoice_item.unit_price = invoice_item.unit_price / 100
+      invoice_item.save
+    end
+    puts 'Invoice Items Imported'
     transactions.each do |line|
-      Transaction.create(line.to_h)
+      Transaction.create(line.to_a[1..-1].to_h)
     end
-    puts("Transactions File imported")
-
-		puts("All Files Imported Successfully!")
+    puts 'Transactions Imported'
+    puts 'Import Complete.'
   end
 end
