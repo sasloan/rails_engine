@@ -40,7 +40,7 @@ describe "Merchant API" do
   	previous_name = Merchant.last.name
   	merchant_params = { name: "Sledge" }
 
-  	put "/api/v1/merchants/#{id}", params: {merchant: merchants_params}
+  	put "/api/v1/merchants/#{id}", params: {merchant: merchant_params}
   	merchant = Merchant.find_by(id: id)
 
   	expect(response).to be_successful
