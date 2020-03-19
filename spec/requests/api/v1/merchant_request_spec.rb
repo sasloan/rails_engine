@@ -53,7 +53,7 @@ describe "Merchant API" do
 
   	expect(Merchant.count).to eq(1)
 
-  	delete "/api/v1/items/#{merchant.id}"
+  	delete "/api/v1/merchants/#{merchant.id}"
 
   	expect(response).to be_successful
   	expect(Merchant.count).to eq(0)
