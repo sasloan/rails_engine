@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_17_043954) do
+ActiveRecord::Schema.define(version: 2020_03_19_020546) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(version: 2020_03_17_043954) do
     t.bigint "item_id", null: false
     t.bigint "invoice_id", null: false
     t.integer "quantity"
-    t.decimal "unit_price"
+    t.integer "unit_price"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["invoice_id"], name: "index_invoice_items_on_invoice_id"
@@ -44,10 +44,10 @@ ActiveRecord::Schema.define(version: 2020_03_17_043954) do
   end
 
   create_table "items", force: :cascade do |t|
-    t.string "name"
-    t.string "description"
-    t.decimal "unit_price"
     t.bigint "merchant_id", null: false
+    t.string "name"
+    t.text "description"
+    t.integer "unit_price"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["merchant_id"], name: "index_items_on_merchant_id"
@@ -61,7 +61,7 @@ ActiveRecord::Schema.define(version: 2020_03_17_043954) do
 
   create_table "transactions", force: :cascade do |t|
     t.bigint "invoice_id", null: false
-    t.integer "credit_card_number"
+    t.string "credit_card_number"
     t.string "credit_card_expiration_date"
     t.boolean "result"
     t.datetime "created_at", precision: 6, null: false
