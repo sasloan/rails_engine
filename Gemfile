@@ -11,7 +11,6 @@ gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 4.1'
 gem 'rspec-rails'
 gem 'json'
-gem 'faker'
 gem 'fast_jsonapi'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -38,6 +37,7 @@ group :development, :test do
 	gem 'pry'
 	gem 'simplecov'
 	gem 'shoulda-matchers'
+	gem 'faker'
 end
 
 group :development do
