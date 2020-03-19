@@ -16,13 +16,13 @@ class Api::V1::ItemsController < ApplicationController
 	def update
 		merchant = Merchant.find(params[:merchant_id])
 		item = merchant.items.find(params[:id])
-		render json: ItesmSerializer.new(item.update(item_params))
+		render json: ItemSerializer.new(Item.update(params[:id], item_params))
 	end
 
 	def destroy
 		merchant = Merchant.find(params[:merchant_id])
 		item = merchant.items.find(params[:id])
-		render json: ItemSerializer.new(item.destroy) 
+		render json: ItemSerializer.new(item.destroy)
 	end
 
 private
