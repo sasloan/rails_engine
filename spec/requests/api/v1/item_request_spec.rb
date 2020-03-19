@@ -28,9 +28,23 @@ describe "Items API" do
   	item_params = { name: "Saw", description: "I want to play a game", unit_price: 5.00}
 
   	post "/api/v1/merchants/#{merchant.id}/items", params: {item: item_params}
-  	item = Item.last
+  	item = merchant.items.last
 
   	expect(response).to be_successful
   	expect(item.name).to eq(item_params[:name])
+	end
+
+	it "can update an existing item" do
+		merchant = create(:merchant)
+  	id = merchant.items.create(name: "Felicia", description: "Basic", unit_price: 5.00).id
+  	previous_name = merchant.items.last.name
+  	item_params = { name: "Sledge" }
+
+  	put "/api/v1/merchants/#{merchant.id}/items/#{id}", params: {item: item_params}
+  	item = Item.find_by(id: id)
+
+  	expect(response).to be_successful
+  	expect(item.name).to_not eq(previous_name)
+  	expect(item.name).to eq("Sledge")
 	end
 end

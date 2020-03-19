@@ -9,12 +9,13 @@ class Api::V1::ItemsController < ApplicationController
 	end
 
 	def create
-		render json: Item.create(item_params)
+		merchant = Merchant.find(params[:merchant_id])
+		render json: merchant.items.create(item_params)
 	end
 
 private
 
 	def item_params
-		params.require(:merchant, :item).permit(:name, :description, :unit_price)
+		params.require(:item).permit(:name, :description, :unit_price, :merchant_id)
 	end
 end
