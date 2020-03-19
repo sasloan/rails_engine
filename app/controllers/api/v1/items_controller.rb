@@ -20,7 +20,9 @@ class Api::V1::ItemsController < ApplicationController
 	end
 
 	def destroy
-
+		merchant = Merchant.find(params[:merchant_id])
+		item = merchant.items.find(params[:id])
+		item.destroy 
 	end
 
 private
