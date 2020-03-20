@@ -47,7 +47,7 @@ ActiveRecord::Schema.define(version: 2020_03_19_020546) do
     t.bigint "merchant_id", null: false
     t.string "name"
     t.text "description"
-    t.integer "unit_price"
+    t.float "unit_price"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["merchant_id"], name: "index_items_on_merchant_id"
