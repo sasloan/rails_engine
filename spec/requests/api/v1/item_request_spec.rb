@@ -6,7 +6,7 @@ describe "Items API" do
 
     create_list(:item, 3)
 
-    get "/api/v1/merchants/#{merchant.id}/items"
+    get "/api/v1/items"
 
     expect(response).to be_successful
   end
@@ -15,7 +15,7 @@ describe "Items API" do
 		merchant = create(:merchant)
     id = create(:item).id
 
-    get "/api/v1/merchants/#{merchant.id}/items/#{id}"
+    get "/api/v1/items/#{id}"
 
     item = JSON.parse(response.body, symbolize_names: true)
 
@@ -25,9 +25,9 @@ describe "Items API" do
 
 	it "can create a new item" do
 		merchant = create(:merchant)
-  	item_params = { name: "Saw", description: "I want to play a game", unit_price: 5.00}
+  	item_params = { name: "Saw", description: "I want to play a game", unit_price: 5.00, merchant_id: merchant.id}
 
-  	post "/api/v1/merchants/#{merchant.id}/items", params: {item: item_params}
+  	post "/api/v1/items", params: {item: item_params}
   	item = merchant.items.last
 
   	expect(response).to be_successful
@@ -36,11 +36,11 @@ describe "Items API" do
 
 	it "can update an existing item" do
 		merchant = create(:merchant)
-  	id = merchant.items.create(name: "Felicia", description: "Basic", unit_price: 5.00).id
+  	id = merchant.items.create(name: "Felicia", description: "Basic", unit_price: 5.00, merchant_id: merchant.id).id
   	previous_name = merchant.items.last.name
   	item_params = { name: "Sledge" }
 
-  	put "/api/v1/merchants/#{merchant.id}/items/#{id}", params: {item: item_params}
+  	put "/api/v1/items/#{id}", params: {item: item_params}
   	item = Item.find_by(id: id)
 
   	expect(response).to be_successful
@@ -50,11 +50,11 @@ describe "Items API" do
 
 	it "can destroy an item" do
 		merchant = create(:merchant)
-  	item = merchant.items.create(name: "Felicia", description: "Basic", unit_price: 5.00)
+  	item = merchant.items.create(name: "Felicia", description: "Basic", unit_price: 5.00, merchant_id: merchant.id)
 
   	expect(Item.count).to eq(1)
 
-  	delete "/api/v1/merchants/#{merchant.id}/items/#{item.id}"
+  	delete "/api/v1/items/#{item.id}"
 
   	expect(response).to be_successful
   	expect(Item.count).to eq(0)

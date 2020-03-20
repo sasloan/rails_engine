@@ -9,9 +9,11 @@ namespace :import do
     items = CSV.read('db/csv_seeds/items.csv', headers: true)
     merchants = CSV.read('db/csv_seeds/merchants.csv', headers: true)
     transactions = CSV.read('db/csv_seeds/transactions.csv', headers: true)
+
     customers.each do |line|
       Customer.create(line.to_a[1..-1].to_h)
     end
+		
     puts 'Customers Imported'
     merchants.each do |line|
       Merchant.create(line.to_a[1..-1].to_h)
