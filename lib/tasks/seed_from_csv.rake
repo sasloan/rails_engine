@@ -22,7 +22,7 @@ namespace :import do
 
     items.each do |line|
       item = Item.new(line.to_a[1..-1].to_h)
-      item.unit_price = item.unit_price.round(2) / 100.00
+      item.unit_price = item.unit_price / 100
       item.save
     end
     puts 'Items Imported'

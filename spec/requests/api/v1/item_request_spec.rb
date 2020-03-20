@@ -27,7 +27,7 @@ describe "Items API" do
 		merchant = create(:merchant)
   	item_params = { name: "Saw", description: "I want to play a game", unit_price: 5.00, merchant_id: merchant.id}
 
-  	post "/api/v1/items", params: {item: item_params}
+  	post "/api/v1/items", params: (item_params)
   	item = merchant.items.last
 
   	expect(response).to be_successful
@@ -40,11 +40,11 @@ describe "Items API" do
   	previous_name = merchant.items.last.name
   	item_params = { name: "Sledge" }
 
-  	put "/api/v1/items/#{id}", params: {item: item_params}
+  	put "/api/v1/items/#{id}", params: (item_params)
   	item = Item.find_by(id: id)
 
   	expect(response).to be_successful
-  	expect(item.name).to_not eq(previous_name)
+  	expect(item.name).to_not eq("Felicia")
   	expect(item.name).to eq("Sledge")
 	end
 
