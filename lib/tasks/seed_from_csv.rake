@@ -13,8 +13,8 @@ namespace :import do
     customers.each do |line|
       Customer.create(line.to_a[1..-1].to_h)
     end
-
     puts 'Customers Imported'
+
     merchants.each do |line|
       Merchant.create(line.to_a[1..-1].to_h)
     end
