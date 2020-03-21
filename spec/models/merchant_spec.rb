@@ -13,11 +13,10 @@ RSpec.describe Merchant, type: :model do
 
 	describe "Methods" do
 		before :each do
-			@walmart = Merchant.create("Walmart")
-		end
-
-		it ".search" do
-			expect(Merchant.search("Walmart").records.length).to eq(1)
+			@walmart = Merchant.create!(name: "walmart")
+			@dicks = Merchant.create!(name: "Dicks Sporting Goods")
+			@wells = Merchant.create!(name: "Wells Fargo")
+			@subway = Merchant.create!(name: "Subway")
 		end
 	end
 end
