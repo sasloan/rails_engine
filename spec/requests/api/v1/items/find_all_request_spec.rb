@@ -8,17 +8,19 @@ describe "When a user inserts 'GET /api/v1/<resource>/find?<attribute>=<value>'"
 		@shirt = @walmart.items.create!(name: "Cool Shirt", description: "T Shirt", unit_price: 15.00)
 	end
 
-	xit 'returns the oppropriate response' do
+	it 'returns the oppropriate response' do
 
-		get "/api/v1/items/find_all?name=Cool Watch"
+		get "/api/v1/items/find_all?name=Cool"
 
 		item = JSON.parse(response.body, symbolize_names: true)
 
 		expect(response).to be_successful
 		expect(item[:data][0][:attributes][:id].to_i).to eq(@watch.id)
+		expect(item[:data][1][:attributes][:id].to_i).to eq(@hat.id)
+		expect(item[:data][2][:attributes][:id].to_i).to eq(@shirt.id)
 	end
 
-	xit 'returns the oppropriate response even if it is not capitalized' do
+	it 'returns the oppropriate response even if it is not capitalized' do
 
 		get "/api/v1/items/find_all?name=Cool Shirt"
 
@@ -28,7 +30,7 @@ describe "When a user inserts 'GET /api/v1/<resource>/find?<attribute>=<value>'"
 		expect(item[:data][0][:attributes][:id].to_i).to eq(@shirt.id)
 	end
 
-	xit 'returns the oppropriate response even if the user does not fill out the whole name' do
+	it 'returns the oppropriate response even if the user does not fill out the whole name' do
 
 		get "/api/v1/items/find_all?name=Cool"
 
