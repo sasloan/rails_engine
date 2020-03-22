@@ -19,19 +19,19 @@ RSpec.describe Merchant, type: :model do
 			@tshirt = @walmart.items.create!(name: "T-Shirt", description: "graphic T-shirt", unit_price: 7.00)
 			@shoes = @walmart.items.create!(name: "Asics", description: "Running shoes", unit_price: 12.00)
 			@wells = Merchant.create!(name: "Wells Fargo")
-			@register = @wells.create!(name: "register", description: "Money Holder", unit_price: 150.00)
-			@computer = @wells.create!(name: "Computer", description: "account holder", unit_price: 350.00)
-			@vault = @wells.create!(name: "vault", description: "real money holder", unit_price: 1000.00)
+			@register = @wells.items.create!(name: "register", description: "Money Holder", unit_price: 150.00)
+			@computer = @wells.items.create!(name: "Computer", description: "account holder", unit_price: 350.00)
+			@vault = @wells.items.create!(name: "vault", description: "real money holder", unit_price: 1000.00)
 			@dicks = Merchant.create!(name: "Dicks Sporting Goods")
 			@ball = @dicks.items.create!(name: "Foot Ball", description: "Ball for playing football", unit_price: 15.00)
 			@gum = @dicks.items.create!(name: "Gum", description: "chew while playing baseball", unit_price: 4.00)
 			@skates = @dicks.items.create!(name: "Roller Skates", description: "Skates to roll around on", unit_price: 89.00)
 			@club = @dicks.items.create!(name: "Golf Club", description: "Set of Golf Clubs", unit_price: 20.00)
 			@subway = Merchant.create!(name: "Subway")
-			@sandwich = @subway.create!(name: "Sub sandwich", descrption: "Food", unit_price: 5.00)
-			@pickles = @subway.create!(name: "Pickles", descrption: "sour cucumber", unit_price: 2.00)
-			@lettuce = @subway.create!(name: "Lettuce", descrption: "shredded veggtable", unit_price: 1.00)
-			@bread = @subway.create!(name: "Bread", descrption: "case for condiments", unit_price: 10.00)
+			@sandwich = @subway.items.create!(name: "Sub sandwich", description: "Food", unit_price: 5.00)
+			@pickles = @subway.items.create!(name: "Pickles", description: "sour cucumber", unit_price: 2.00)
+			@lettuce = @subway.items.create!(name: "Lettuce", description: "shredded veggtable", unit_price: 1.00)
+			@bread = @subway.items.create!(name: "Bread", description: "case for condiments", unit_price: 10.00)
 			@sherry = Customer.create!(first_name: "Sherry", last_name: "Smith")
 			@holly = Customer.create!(first_name: "Holly", last_name: "Smith")
 			@nancy = Customer.create!(first_name: "Nancy", last_name: "Smith")
@@ -94,8 +94,8 @@ RSpec.describe Merchant, type: :model do
 			@transaction_12 = Transaction.create!(credit_card_number: "2122 2324 2526 2728", result: true, invoice_id: @invoice_12.id)
 		end
 
-		it '.revenue' do
-			expect(@walmart.revenue).to eq(477.50)
+		it '.revenue(merchant)' do
+			expect(Merchant.revenue(@walmart)).to eq(477.50)
 		end
 
 		xit '.most_items_sold' do
