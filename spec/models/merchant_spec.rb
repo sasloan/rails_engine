@@ -102,6 +102,9 @@ RSpec.describe Merchant, type: :model do
 			expect(Merchant.most_items_sold).to eq(@subway)
 		end
 
+		it '.most_revenue' do
+			expect(Merchant.most_revenue).to eq(@wells)
+		end
 		
 	end
 end
