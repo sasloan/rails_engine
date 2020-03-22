@@ -98,6 +98,10 @@ RSpec.describe Merchant, type: :model do
 			expect(@walmart.revenue).to eq(477.50)
 		end
 
+		it '.most_items_sold' do
+			expect(Merchant.most_items_sold).to eq(@subway)
+		end
+
 		
 	end
 end
