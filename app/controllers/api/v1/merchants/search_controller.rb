@@ -1,6 +1,6 @@
 class Api::V1::Merchants::SearchController < ApplicationController
 	def show
-		render json: MerchantSerializer.new(Merchant.find_by(merchant_params))
+		render json: MerchantSerializer.new(Merchant.where("#{request.query_parameters.keys[0]} like ?", "%#{request.query_parameters.values[0].capitalize}%").limit(1))
 	end
 
 private
