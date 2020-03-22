@@ -15,7 +15,7 @@ describe "When a user inserts 'GET /api/v1/<resource>/find?<attribute>=<value>'"
 		merchant = JSON.parse(response.body, symbolize_names: true)
 
 		expect(response).to be_successful
-		expect(merchant[:data][0][:attributes][:id].to_i).to eq(@walmart.id)
+		expect(merchant[:data][:attributes][:id].to_i).to eq(@walmart.id)
 	end
 
 	it 'returns the oppropriate response even if it is not capitalized' do
@@ -25,7 +25,7 @@ describe "When a user inserts 'GET /api/v1/<resource>/find?<attribute>=<value>'"
 		merchant = JSON.parse(response.body, symbolize_names: true)
 
 		expect(response).to be_successful
-		expect(merchant[:data][0][:attributes][:id].to_i).to eq(@subway.id)
+		expect(merchant[:data][:attributes][:id].to_i).to eq(@subway.id)
 	end
 
 	it 'returns the oppropriate response even if the user does not fill out the whole name' do
@@ -35,6 +35,6 @@ describe "When a user inserts 'GET /api/v1/<resource>/find?<attribute>=<value>'"
 		merchant = JSON.parse(response.body, symbolize_names: true)
 
 		expect(response).to be_successful
-		expect(merchant[:data][0][:id].to_i).to eq(@dicks.id)
+		expect(merchant[:data][:id].to_i).to eq(@dicks.id)
 	end
 end

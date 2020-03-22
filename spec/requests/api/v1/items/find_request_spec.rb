@@ -15,7 +15,7 @@ describe "When a user inserts 'GET /api/v1/<resource>/find?<attribute>=<value>'"
 		item = JSON.parse(response.body, symbolize_names: true)
 
 		expect(response).to be_successful
-		expect(item[:data][0][:attributes][:id].to_i).to eq(@watch.id)
+		expect(item[:data][:attributes][:id].to_i).to eq(@watch.id)
 	end
 
 	it 'returns the oppropriate response even if it is not capitalized' do
@@ -25,7 +25,7 @@ describe "When a user inserts 'GET /api/v1/<resource>/find?<attribute>=<value>'"
 		item = JSON.parse(response.body, symbolize_names: true)
 
 		expect(response).to be_successful
-		expect(item[:data][0][:attributes][:id].to_i).to eq(@shirt.id)
+		expect(item[:data][:attributes][:id].to_i).to eq(@shirt.id)
 	end
 
 	it 'returns the oppropriate response even if the user does not fill out the whole name' do
@@ -35,7 +35,7 @@ describe "When a user inserts 'GET /api/v1/<resource>/find?<attribute>=<value>'"
 		item = JSON.parse(response.body, symbolize_names: true)
 
 		expect(response).to be_successful
-		expect(item[:data][0][:id].to_i).to eq(@watch.id)
+		expect(item[:data][:id].to_i).to eq(@watch.id)
 	end
 
 	it "returns appropriate response even if you use two different parameters" do
@@ -45,6 +45,6 @@ describe "When a user inserts 'GET /api/v1/<resource>/find?<attribute>=<value>'"
 		item = JSON.parse(response.body, symbolize_names: true)
 
 		expect(response).to be_successful
-		expect(item[:data][0][:id].to_i).to eq(@shirt.id)
+		expect(item[:data][:id].to_i).to eq(@shirt.id)
 	end
 end
