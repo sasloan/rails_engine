@@ -6,9 +6,9 @@ class Merchant < ApplicationRecord
 	has_many :customers, through: :invoices
 	has_many :invoice_items, through: :invoices
 	has_many :invoice_items, through: :items
-	has_many :transations, through: :invoices
+	has_many :transactions, through: :invoices
 
 	def self.revenue(merchant)
-		joins(:invoices, :invoice_items)
+		joins(:invoice_items, :transactions).select("#{merchant}, sum(invoice_items.quantity * invoice_items.unit_price) as revenue").group(:id).where("transactions.result = true").order('revenue desc')
 	end
 end
