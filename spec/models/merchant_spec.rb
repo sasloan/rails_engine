@@ -10,4 +10,13 @@ RSpec.describe Merchant, type: :model do
 		it {should have_many :invoices}
 		it {should have_many(:customers).through(:invoices)}
 	end
+
+	describe "Methods" do
+		before :each do
+			@walmart = Merchant.create!(name: "walmart")
+			@dicks = Merchant.create!(name: "Dicks Sporting Goods")
+			@wells = Merchant.create!(name: "Wells Fargo")
+			@subway = Merchant.create!(name: "Subway")
+		end
+	end
 end
