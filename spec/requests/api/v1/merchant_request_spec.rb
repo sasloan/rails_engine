@@ -24,6 +24,18 @@ describe "Merchant API" do
     expect(merchant[:data][:id].to_i).to eq(id)
   end
 
+	it "can get the items for a specific merchant" do
+    merchant = Merchant.create!(name: "Walmart")
+		item = merchant.items.create!(name: "Watch", description: "Cool Mickey Watch", unit_price: 3.00)
+
+    get "/api/v1/items/#{item.id}/merchant"
+
+    merchant = JSON.parse(response.body, symbolize_names: true)
+
+    expect(response).to be_successful
+    expect(merchant[:data][:id].to_i).to eq(item.merchant_id)
+  end
+
 	it "can create a new merchant" do
   	merchant_params = { name: "Saw" }
 
