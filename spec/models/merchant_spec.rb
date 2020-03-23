@@ -94,15 +94,15 @@ RSpec.describe Merchant, type: :model do
 			@transaction_12 = Transaction.create!(credit_card_number: "2122 2324 2526 2728", result: true, invoice_id: @invoice_12.id)
 		end
 
-		xit '.revenue(merchant)' do
+		it '.revenue(merchant)' do
 			expect(Merchant.revenue(@walmart)).to eq(477.50)
 		end
 
-		xit '.most_items_sold' do
+		it '.most_items_sold' do
 			expect(Merchant.most_items_sold).to eq(@subway)
 		end
 
-		xit '.most_revenue' do
+		it '.most_revenue' do
 			expect(Merchant.most_revenue).to eq(@wells)
 		end
 	end

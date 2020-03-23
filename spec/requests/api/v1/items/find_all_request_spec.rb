@@ -40,7 +40,7 @@ describe "When a user inserts 'GET /api/v1/<resource>/find?<attribute>=<value>'"
 		expect(item[:data][0][:id].to_i).to eq(@watch.id)
 	end
 
-	xit "returns appropriate response even if you use two different parameters" do
+	it "returns appropriate response even if you use two different parameters" do
 
 		get "/api/v1/items/find_all?name=Cool&description=T Shirt"
 
