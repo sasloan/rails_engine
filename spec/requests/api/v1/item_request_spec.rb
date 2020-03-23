@@ -11,6 +11,16 @@ describe "Items API" do
     expect(response).to be_successful
   end
 
+  it "sends a list of merchants items" do
+		merchant = create(:merchant)
+
+    create_list(:item, 3)
+
+    get "/api/v1/merchants/#{merchant.id}/items"
+
+    expect(response).to be_successful
+  end
+
 	it "can get one item by its id" do
 		merchant = create(:merchant)
     id = create(:item).id
